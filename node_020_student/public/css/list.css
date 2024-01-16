@@ -1,0 +1,43 @@
+h1 {
+  width: 80%;
+  margin: 20px auto;
+}
+table {
+  border: 1px solid green;
+  width: 80%;
+  margin: 0 auto;
+  /* 기본값 
+    border-collapse: separate;  */
+
+  border-collapse: collapse;
+}
+td,
+th {
+  border: 1px solid red;
+  text-align: center;
+  padding: 8px;
+  cursor: pointer;
+}
+tbody tr:nth-of-type(odd) {
+  background-color: #eee;
+}
+
+div.btn_box {
+  width: 80%;
+  margin: 10px auto;
+  background-color: #eee;
+  padding: 10px 0;
+  text-align: right;
+}
+div.btn_box a {
+  display: inline-block;
+  padding: 12px 16px;
+  background-color: rgb(134, 134, 255);
+  color: white;
+  font-weight: 900;
+  border-radius: 10px;
+}
+
+div.btn_box a:hover {
+  background-color: rgb(39, 39, 255);
+}
