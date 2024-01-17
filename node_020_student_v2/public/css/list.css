@@ -22,6 +22,15 @@ th {
   border-top: 1px solid #bbb;
   background-color: #eee;
 }
+
+tr:nth-of-type(odd) {
+  background-color: #eee;
+}
+tr:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+
 /* 원래 괄호안에 숫자를 안넣어도 되는데 왜 안되지 */
 th:nth-last-of-type(1),
 td:nth-last-of-type(1) {

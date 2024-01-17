@@ -6,8 +6,9 @@ import mysql from "mysql2";
  */
 
 const mysql_info = {
+  // 여기서 오류가 나면 dbCreate 함수가 실행되지 않음
   host: "localhost",
-  prot: "3306",
+  port: "3306",
   user: "root",
   password: "!Biz8080",
   database: "schoolDB",
