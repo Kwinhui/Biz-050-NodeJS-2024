@@ -21,3 +21,32 @@ span {
   background-color: #eee;
   flex: 3;
 }
+
+div.btn_box {
+  display: flex;
+  border: none;
+  justify-content: right;
+}
+div.btn_box button {
+  margin: 10px 0 10px 10px;
+  /* margin: 10px;
+  margin-right: 0; */
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+div.btn_box button:hover {
+  transition: 0.7s;
+  opacity: 0.5;
+}
+button.btn_list {
+  background-color: green;
+}
+button.btn_update {
+  background-color: blue;
+}
+button.btn_delete {
+  background-color: red;
+}

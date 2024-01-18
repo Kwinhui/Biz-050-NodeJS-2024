@@ -104,5 +104,58 @@ router.get("/:st_num/check", (req, res) => {
   });
 });
 
+router.get("/:st_num/delete", (req, res) => {
+  const st_num = req.params.st_num;
+  const sql = " DELETE FROM tbl_student WHERE st_num = ? ";
+  dbConn.query(sql, [st_num], (err, result) => {
+    if (err) {
+      return res.json(err);
+    } else {
+      return res.redirect("/student");
+      // 리스트로 점프
+    }
+  });
+});
+
+// localhost:3000/student/학번/update
+// form tag 의 action 이 자동으로 URL 이 설정된다.
+router.get("/:st_num/update", (req, res) => {
+  const st_num = req.params.st_num;
+  const sql = " SELECT * FROM tbl_student WHERE st_num = ? ";
+  dbConn.query(sql, [st_num], (err, result) => {
+    if (err) {
+      return res.json(err);
+    } else {
+      return res.render("student/input", { STD: result[0] });
+    }
+  });
+});
+
+router.post("/:st_num/update", (req, res) => {
+  const st_num = req.params.st_num;
+  // params 주소창에 있는 학번
+  const st_name = req.body.st_name;
+  // body input에 입력돼있는 데이터
+  const st_dept = req.body.st_dept;
+  const st_grade = req.body.st_grade;
+  const st_tel = req.body.st_tel;
+  const st_addr = req.body.st_addr;
+  // 업데이트를 할 데이터
+  // pk는 항상 마지막에
+  // 학번을 기준으로 업데이트 해야하기 때문에
+  // WHERE st_num = ? 을 마지막에 넣어야함
+  const params = [st_name, st_dept, st_grade, st_tel, st_addr, st_num];
+  const sql =
+    " UPDATE tbl_student SET st_name = ?, " + " st_dept = ?, " + " st_grade = ?, " + " st_tel = ?, " + " st_addr = ? " + " WHERE st_num = ? ";
+
+  dbConn.query(sql, params, (err, result) => {
+    if (err) {
+      return res.json(err);
+    } else {
+      return res.redirect(`/student/${st_num}/detail`);
+    }
+  });
+});
+
 // router 객체를 다른곳에서 import 할수 있도록 export 하기
 export default router;

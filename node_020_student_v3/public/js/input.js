@@ -47,26 +47,28 @@ document.addEventListener("DOMContentLoaded", () => {
   // 여러개의 tag 묶음을 배열로 만들기
   const error_divs = document.querySelectorAll("div.student.error");
 
-  const st_num_valid = async () => {
+  const st_num_valid = async (target) => {
     // result 에는 ERROR, 있다, 없다 중의 한가지 문자열이 저장된다.
-    const result = await st_num_check(st_num.value);
+    const result = await st_num_check(target.value);
     let message = "";
     let color = "red";
     if (result === "ERROR") {
       message = " * DB 오류";
     } else if (result === "있다") {
-      message = "이미 등록된 학번입니다.";
+      message = " * 이미 등록된 학번입니다.";
     } else if (result === "없다") {
       message = " * 사용가능한 학번 입니다.";
       color = "blue";
     }
     error_divs[ST_INDEX.ST_NUM].innerHTML = message;
     error_divs[ST_INDEX.ST_NUM].style.color = color;
-    if (color === "red") {
-      st_num.select();
-      return false;
-    }
-    return true;
+    // if (color === "red") {
+    //   st_num.select();
+    //   return false;
+    // }
+    // return true;
+    // color 값이 "red" 이면 true, 아니면 false return
+    return color === "red";
   };
 
   /**
@@ -85,8 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
       st_num.select();
       return false;
     } else {
-      const bYes = await st_num_valid();
-      if (!bYes) return false;
+      const bRedYes = st_num_valid(st_num);
+      if (!bRedYes) {
+        st_num.select();
+        return false;
+      }
     }
 
     if (!st_name.value) {
@@ -110,7 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
    * input box 에 foucs 가 있다가 다른 곳으로 focus() 이동하는 순간
    * 발생하는 event
    */
-  st_num?.addEventListener("blur", (event) => {
+  let EVENT_ST_NUM = false;
+  st_num?.addEventListener("blur", async (event) => {
     // "blur" 는 input.css 에 있는 focus가 끝나면 발생한다
     // "blur" 를 쓸땐 alert를 쓰면 안됨
     // const target = event.currentTarget;
@@ -124,27 +130,34 @@ document.addEventListener("DOMContentLoaded", () => {
       target.select();
       return false;
     } else {
+      if (bRedYes) {
+        const bRedYes = await st_num_valid(target);
+        target.select();
+        return false;
+      }
       // 학번이 입력이 됐으면 *학번을 입력해 주세요 문구를 초기화
       // error_divs[ST_INDEX.ST_NUM].innerText = "";
-      const bYes = st_num_valid();
-      if (!bYes) return false;
     }
+    // ST_NUM 에서 유효성 검사가 모두 끝났다 라는 flag 변수
+    EVENT_ST_NUM = true;
     // alert(value);
   });
 
   st_name.addEventListener("blur", (event) => {
+    // ST_NUM 에서 유효성 검사가 끝나지 않았으면(false) 더 진행하지 말라
+    if (!EVENT_ST_NUM) return false;
+
     const target = event.target;
     const value = target.value;
     if (!value) {
-      error_divs[ST_INDEX.ST_NAME].innerText = "* 이름을 입력해 주세요";
-      target.select();
+      error_divs[ST_INDEX.ST_NAME].innerText = " * 이름은 반드시 입력해야 합니다";
+      st_name.select();
       return false;
-    } else {
-      error_divs[ST_INDEX.ST_NAME].innerText = "";
     }
   });
 
   st_dept.addEventListener("blur", (event) => {
+    if (!EVENT_ST_NUM) return false;
     const target = event.target;
     const value = target.value;
     if (!value) {
