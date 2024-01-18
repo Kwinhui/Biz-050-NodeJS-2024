@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
       st_num.select();
       return false;
     } else {
-      const bYes = st_num_valid();
+      const bYes = await st_num_valid();
       if (!bYes) return false;
     }
 
