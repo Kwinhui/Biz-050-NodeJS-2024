@@ -1,0 +1,22 @@
+extend ../layout
+
+block content 
+    link(rel="stylesheet", href="/css/input.css")
+    script(src="/js/input.js")
+    h2.student 학생정보 입력
+    form.student.input(method="POST") 
+        input#st_num(name="st_num", placeholder="학번을 입력하세요")
+        div.student.error.st_num
+        input#st_name(name="st_name", placeholder="이름을 입력하세요")
+        div.student.error.st_name
+        input#st_dept(name="st_dept", placeholder="학과를 입력하세요")
+        div.student.error.st_dept
+        button(type="button") 전송
+        //- form 안에 button이 있어야함
+
+        //- form tag 안에 button은 기본적으로 submit event가 있음
+        //- js 에서 클릭을했을때 event를 발생시키려면 button타입을
+        //- button 으로 바꿔주면 됨
+        //- 바꿔주지 않으면 전송을 2번 하는거나 마찬가지라 NOT Found Error 발생
+    
+    

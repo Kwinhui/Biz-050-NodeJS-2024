@@ -1,0 +1,23 @@
+h3.student,
+div {
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+}
+
+div {
+  display: flex;
+}
+strong,
+span {
+  padding: 5px;
+}
+strong {
+  flex: 1;
+  background-color: #ddd;
+  text-align: right;
+}
+span {
+  background-color: #eee;
+  flex: 3;
+}
