@@ -1,0 +1,31 @@
+extends ../layout
+
+block content 
+    link(rel="stylesheet", href="/css/detail.css")
+    script(src="/js/detail.js")
+
+    h3 도서정보 자세히보기
+    
+    div
+        strong isbn
+        span= BKL.bk_isbn
+    div
+        strong 도서명
+        span= BKL.bk_title
+    div
+        strong 저자
+        span= BKL.bk_author
+    div
+        strong 출판사
+        span= BKL.bk_publisher
+    div
+        strong 가격
+        span= BKL.bk_price
+    div
+        strong 할인가
+        span= BKL.bk_discount
+    .btn_box 
+        button.btn_list 리스트로
+        button.btn_update 수정
+        button.btn_delete 삭제
+

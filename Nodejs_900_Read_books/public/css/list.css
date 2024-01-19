@@ -16,6 +16,7 @@ th {
 }
 td {
   border-bottom: 1px solid black;
+  cursor: pointer;
 }
 div.book {
   display: inline-block;

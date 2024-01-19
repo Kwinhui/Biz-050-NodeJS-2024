@@ -1,0 +1,44 @@
+h3 {
+  padding: 14px 18px;
+  text-align: center;
+  border: 1px solid red;
+  margin: 10px;
+}
+div {
+  display: flex;
+  width: 80%;
+  margin: auto;
+}
+strong,
+span {
+  border-bottom: 1px solid rgb(26, 26, 10);
+  padding: 5px;
+}
+strong {
+  flex: 1;
+
+  background-color: #ddd;
+  text-align: right;
+}
+span {
+  background-color: #eee;
+  flex: 3;
+}
+
+div.btn_box {
+  /* border: 2px solid black; */
+  padding: 10px;
+  justify-content: center;
+}
+div.btn_box button {
+  padding: 10px;
+  background-color: #2a9c34;
+  border-radius: 10px;
+  color: white;
+  transition: 0.6s;
+  cursor: pointer;
+  margin-left: 10px;
+}
+div.btn_box button:hover {
+  background-color: #8dd693;
+}
