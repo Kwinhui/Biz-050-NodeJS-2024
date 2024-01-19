@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+    link(rel="stylesheet", href="/css/input.css")
+    div.topInput
+        input(placeholder="ISBN")
+        input(placeholder="도서명")
+    div.midInput
+        input(placeholder="출판사")
+        input(placeholder="저자")
+        input(placeholder="역자")
+        input(placeholder="가격")
+        input(placeholder="할인가")
+        
+    div.btmInput
+        input(placeholder="발행일")
+        input(placeholder="페이지")
+        input(placeholder="메모")
+
+    div.btnList
+        a(href="/") 저장
+        a(href="/") 새로작성
+        a(href="/") 리스트보기

@@ -1,0 +1,35 @@
+.book {
+  width: 80%;
+  margin: 10px auto;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-top: 1px solid black;
+
+  padding: 12px 16px;
+  text-align: center;
+}
+th {
+  background-color: #ccc;
+}
+td {
+  border-bottom: 1px solid black;
+}
+div.book {
+  display: inline-block;
+  width: 90%;
+
+  text-align: right;
+}
+
+div.btn_box a {
+  padding: 12px 16px;
+  background-color: #666;
+  border-radius: 10px;
+  transition: 0.7s;
+}
+div.btn_box a:hover {
+  background-color: #beb9b9;
+}

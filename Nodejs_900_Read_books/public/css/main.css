@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+header h1 {
+  background-color: #777;
+  padding: 30px;
+  text-align: center;
+}
+
+nav ul {
+  display: flex;
+  background-color: #2b75b1;
+}
+
+nav ul li {
+  list-style: none;
+  padding: 20px;
+
+  margin: 10px 10px 8px 10px;
+
+  border-bottom: 2px solid transparent;
+  transition: 0.5s;
+}
+nav ul li:hover {
+  border-bottom: 2px solid yellow;
+}
+nav ul li:nth-of-type(3) {
+  margin-left: auto;
+  margin-right: 50px;
+}

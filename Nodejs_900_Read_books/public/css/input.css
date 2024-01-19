@@ -1,0 +1,30 @@
+div input {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #bbb;
+}
+
+div.topInput {
+  display: flex;
+  border: 1px solid red;
+
+  margin: 10px auto;
+}
+div.topInput input {
+  flex: 1;
+}
+div.midInput {
+  margin: 10px auto;
+  border: 1px solid green;
+  display: flex;
+}
+div.midInput input:nth-of-type(1),
+div.midInput input:nth-of-type(2),
+div.midInput input:nth-of-type(3) {
+  margin-left: auto;
+}
+div.midInput input {
+  flex: 1;
+}
