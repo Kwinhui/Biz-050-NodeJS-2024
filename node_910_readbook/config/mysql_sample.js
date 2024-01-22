@@ -1,4 +1,4 @@
-import mysql from "mysql2/promise";
+import mysql from "mysql2/promise"; // 동기방식으로 사용하기위해
 /**
  * DB 접속정보를 다시 설정하고, 이 파일을 mysql.js 로 이름변경 후
  * 프로젝트를 실행할 것

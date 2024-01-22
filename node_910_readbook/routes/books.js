@@ -17,7 +17,7 @@ DB.init().then((connection) => (dbConn = connection));
 // then : DB.init()가 전부다 완성될때까지 기다려
 // 완성이되면 connection에 값을 넘겨줘
 // connection은 실행이 끝나면 없어지니 그 값을 dbConn에 담아줘
-console.log("dbConn", dbConn);
+// console.log("dbConn", dbConn);
 
 // const dbConn = DB.init();
 // console.log(dbConn);
