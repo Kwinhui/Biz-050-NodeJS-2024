@@ -75,7 +75,7 @@ router.post("/insert", (req, res) => {
 
 router.get("/:isbn/detail", (req, res) => {
   const isbn = req.params.isbn;
-  console.log(isbn);
+  // console.log(isbn);
 
   const sql = " SELECT * FROM tbl_books WHERE isbn = ? ";
 
