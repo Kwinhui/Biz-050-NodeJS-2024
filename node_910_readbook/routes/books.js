@@ -73,19 +73,47 @@ router.post("/insert", (req, res) => {
     });
 });
 
-router.get("/:books_isbn/detail", (req, res) => {
-  const isbn = req.params.books_isbn;
-  const params = [isbn];
+router.get("/:isbn/detail", (req, res) => {
+  const isbn = req.params.isbn;
+  console.log(isbn);
+
   const sql = " SELECT * FROM tbl_books WHERE isbn = ? ";
 
   dbConn
-    .query(sql, params)
+    .query(sql, isbn)
     .then((rows) => {
-      console.log(rows[0]);
-      return res.render("books/detail", { books: rows[0] });
+      // console.log(rows[0]);
+      // rows 는 [[{}],[{}]] 이렇게 배열이 돼있기 때문에 [0][0] 값이 데이터값이다
+      // return res.json(rows);
+      return res.render("books/detail1", { book: rows[0][0] });
     })
     .catch((err) => {
       res.render("db_error", err);
+    });
+});
+router.get("/:isbn/delete", (req, res) => {
+  const isbn = req.params.isbn;
+  const sql = " DELETE FROM tbl_books WHERE isbn = ? ";
+  dbConn
+    .query(sql, isbn)
+    .then((_) => {
+      return res.redirect("/books");
+    })
+    .catch((err) => {
+      return res.render("db_error", err);
+    });
+});
+
+router.get("/:isbn/update", (req, res) => {
+  const isbn = req.params.isbn;
+  const sql = " SELECT * FROM tbl_books WHERE isbn = ? ";
+  dbConn
+    .query(sql, isbn)
+    .then((rows) => {
+      return res.render("books/input", { book: rows[0][0] });
+    })
+    .catch((err) => {
+      return res.render("db_error", err);
     });
 });
 
