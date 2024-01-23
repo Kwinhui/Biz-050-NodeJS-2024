@@ -1,0 +1,24 @@
+extends ../books/main
+block book_content
+    link(rel="stylesheet", href="/css/books/detail.css")
+    script(src="/js/detail.js")
+    h3.book 상세보기
+    div 
+        strong ISBN 
+        span= books.isbn
+    div 
+        strong 제목
+        span= books.title
+    div 
+        strong 출판사
+        span= books.publisher
+    div 
+        strong 저자
+        span= books.author
+    div 
+        strong 가격
+        span= books.price
+    div 
+        strong 할인가격
+        span= books.discount
+

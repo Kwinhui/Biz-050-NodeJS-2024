@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
     // query() 함수가 완료되면 .then() 함수에 결과를 전달한다.
     .then((rows) => {
       // 실행되면서 결과가 rows 에 담김
-      console.log(rows);
+      // console.log(rows);
       return res.render("books/list", { books: rows[0] });
       // 실제 데이터는 0번 배열 data 이고 1번 data 는 table 의 구조가 출력이 된다
     })
@@ -67,6 +67,22 @@ router.post("/insert", (req, res) => {
     .query(sql, params)
     .then((_) => {
       return res.redirect("/books");
+    })
+    .catch((err) => {
+      res.render("db_error", err);
+    });
+});
+
+router.get("/:books_isbn/detail", (req, res) => {
+  const isbn = req.params.books_isbn;
+  const params = [isbn];
+  const sql = " SELECT * FROM tbl_books WHERE isbn = ? ";
+
+  dbConn
+    .query(sql, params)
+    .then((rows) => {
+      console.log(rows[0]);
+      return res.render("books/detail", { books: rows[0] });
     })
     .catch((err) => {
       res.render("db_error", err);

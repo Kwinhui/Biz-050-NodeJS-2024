@@ -54,6 +54,7 @@ table.books {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
   }
 
   th:nth-last-child(1),
