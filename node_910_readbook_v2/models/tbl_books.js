@@ -1,39 +1,51 @@
-import sequelize from "sequelize";
-
-// seq : sequelize 도구에서 제공하는 data 객체 생성 도구
-const books = (seq) => {
+import Sequelize from "sequelize";
+const book = (sequelize) => {
   const book_table = {
+    // book_table 이라는 객체안에 isbn의 객체
     isbn: {
-      type: sequelize.DataTypes.STRING(13),
+      type: Sequelize.DataTypes.STRING(13),
       primaryKey: true,
+      defaultValue: "",
+      // PK 선언
     },
     title: {
-      type: sequelize.DataTypes.STRING(50),
+      type: Sequelize.DataTypes.STRING(50),
       allowNull: false,
-      // NOT NULL
+      defaultValue: "",
+      // NOT NULL 선언
     },
     author: {
-      type: sequelize.DataTypes.STRING(50),
+      type: Sequelize.DataTypes.STRING(50),
       allowNull: false,
+      defaultValue: "",
+      // NOT NULL 선언
     },
     publisher: {
-      type: sequelize.DataTypes.STRING(50),
+      type: Sequelize.DataTypes.STRING(50),
       allowNull: false,
+      defaultValue: "",
+      // NOT NULL 선언
     },
     price: {
-      type: sequelize.DataTypes.INTEGER,
+      type: Sequelize.DataTypes.INTEGER,
+      defaultValue: 0,
     },
     discount: {
-      type: sequelize.DataTypes.INTEGER,
+      type: Sequelize.DataTypes.INTEGER,
+      defaultValue: 0,
     },
   };
-
-  const seq_init = {
-    sequelize: seq,
+  return sequelize.define("tbl_books", book_table, {
+    // 값3개받음 테이블이름, 테이블구조, seq설정
+    // sequelize 라는 변수를 선언하고, book 함수에서 매개변수로 받은 sequelize 를
+    // 값으로 세팅한다.
+    // 단 선언하는 변수명과 세팅하는 값이 담긴 변수명이 같으면  값이 담긴 변수명을
+    // 생략할 수 있다.
+    // sequelize: sequelize, 이 명령문을 sequelize 만 사용해도 된다.
+    sequelize,
     tableName: "tbl_books",
-  };
-  return seq.define("tbl_books", book_table, seq_init);
-  // 객체로 선언 후 프로젝트가 실행되면 tbl_books 가 자동으로 생성됨
-  // workbench에서 만들 필요 없이
+    timestamps: false,
+  });
 };
-export default books;
+
+export default book;
