@@ -78,8 +78,16 @@ router.get("/:username/check", async (req, res) => {
   }
 });
 
+const LOGIN_MESSAGE = {
+  USER_NOT: "사용자 ID 없음",
+  PASS_WRONG: "비밀번호 오류",
+  NEED_LOGIN: "로그인 필요",
+};
+
 router.get("/login", (req, res) => {
-  return res.render("users/login");
+  // fail 이라는 값을 전달해주면 Need 에 담아서 login.pug에 보내줘
+  const message = req.query.fail;
+  return res.render("users/login", { NEED: message });
 });
 /**
  * 사용자가 login 화면에서 로그인을 실행하면(요청)
@@ -93,12 +101,28 @@ router.post("/login", async (req, res) => {
   const password = req.body.m_password;
   const result = await USER.findByPk(username);
   if (!result) {
-    return res.json({ MESSAGE: "USER NOT FOUND" });
+    // fail에 담아서 USER_NOT 메세지를 보내줘
+    return res.redirect(`/users/login?fail=${LOGIN_MESSAGE.USER_NOT}`);
+    // return res.json({ MESSAGE: "USER NOT FOUND" });
   } else if (result.m_username === username && result.m_password !== password) {
-    return res.json({ MESSAGE: "PASSWORD WRONG" });
-  } else if (result.m_username === username && result.m_password === password) {
-    return res.json({ MESSAGE: "LOGIN OK" });
+    // fail에 담아서 PASS_WRONG 메세지를 보내줘
+    return res.redirect(`/users/login?fail=${LOGIN_MESSAGE.PASS_WRONG}`);
+    // return res.json({ MESSAGE: "PASSWORD WRONG" });
+  } else {
+    /**
+     * DB 에서 가져온 사용자 정보(result)를
+     * Server 의 세션영역에 user 라는 이름으로 보관하라
+     * 그리고 Session ID 를 발행하라
+     */
+    req.session.user = result;
+    return res.redirect("/");
+    // return res.json({ MESSAGE: "LOGIN OK" });
   }
+});
+
+router.get("/logout", (req, res) => {
+  req.session.destroy();
+  return res.redirect("/");
 });
 
 export default router;
