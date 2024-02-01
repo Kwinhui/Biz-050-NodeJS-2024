@@ -4,6 +4,22 @@ const USER = DB.models.tbl_members;
 // DB.models 에서 tbl_members를 꺼내서 쓴다.
 const router = express.Router();
 
+/**
+ * NodeJS 에서 기본적으로 제공하는 암호화 도구
+ * 현재 사용하는 상당부분의 암호화 알고르짐을 내부적으로 구현하여
+ * 쉽게 암호화 기능을 구현할 수 있도록 하는 도구
+ * 이 도구는 프로젝트가 실행되는 과정에서 import 오류가 발생할 가능성이 있다.
+ * 이 모듈은 동적모듈로 실행할때 외부 서버의 기능(함수)을 사용하여 작동된다.
+ * 그래서 import 과정부터 exception 처리를 해 주어야 한다.
+ */
+
+let crypto;
+try {
+  crypto = await import("node:crypto");
+} catch (error) {
+  console.error(`Crypt 모듈을 사용할 수 없음 ${error}`);
+}
+
 /* GET users listing. */
 router.get("/", async (req, res, next) => {
   res.send("respond with a resource");
@@ -52,10 +68,29 @@ router.post("/join", async (req, res) => {
     req.body.m_role = "ADMIN";
     // return res.send("가입된 회원이 없음!");
   }
-  const result = await USER.create(req.body);
-  // req.body 값을 USER에게 insert 해라
 
-  return res.json(result);
+  // 입력된 사용자 정보중 비밀번호를 단방향 암호화를 하여 Table 에 저장하기
+  const password = req.body.m_password;
+
+  // 암호화를 하기위한 준비작업
+  // 1. SHA512 알고리즘으로 암호화를 하겠다
+  const hashAlgorithm = await crypto.createHash("sha512");
+  // 2. password 변수에 값을 암호화 해서 hashing에 넣어라
+  const hashing = await hashAlgorithm.update(password);
+  // digest : 간추리다, 요약하다
+  // 3. base64 방식으로 인코딩(간추리기)하라
+  const hashPassword = await hashing.digest("base64");
+  // 4. 암호화된 비밀번호를 원래 req.body.m_password 에 저장
+  req.body.m_password = hashPassword;
+
+  // return res.json({password:password, hashing:hashing})
+  //return res.json({ password, hashing, hashPassword });
+
+  // req.body 값을 USER에게 insert 해라
+  // 5. table 에 개인정보 저장하기
+  const result = await USER.create(req.body);
+
+  return res.redirect("/users/login");
 
   // req.body에 데이터가 잘 담겨오는지 확인
   // res.json(req.body);
@@ -104,20 +139,23 @@ router.post("/login", async (req, res) => {
     // fail에 담아서 USER_NOT 메세지를 보내줘
     return res.redirect(`/users/login?fail=${LOGIN_MESSAGE.USER_NOT}`);
     // return res.json({ MESSAGE: "USER NOT FOUND" });
-  } else if (result.m_username === username && result.m_password !== password) {
+  } else if (result.m_username === username) {
     // fail에 담아서 PASS_WRONG 메세지를 보내줘
-    return res.redirect(`/users/login?fail=${LOGIN_MESSAGE.PASS_WRONG}`);
+    const hashAlgorithm = await crypto.createHash("sha512");
+    // 로그인할때 입력한 패스워드
+    const hashing = hashAlgorithm.update(password);
+    const hashPassword = hashing.digest("base64");
+    // db에 저장된 password 와 입력해서 암호화된 password가 같다
+    if (result.m_password === hashPassword) {
+      req.session.user = result;
+      return res.redirect("/");
+    } else {
+      return res.redirect(`/users/login?fail=${LOGIN_MESSAGE.PASS_WRONG}`);
+    }
+
     // return res.json({ MESSAGE: "PASSWORD WRONG" });
-  } else {
-    /**
-     * DB 에서 가져온 사용자 정보(result)를
-     * Server 의 세션영역에 user 라는 이름으로 보관하라
-     * 그리고 Session ID 를 발행하라
-     */
-    req.session.user = result;
-    return res.redirect("/");
-    // return res.json({ MESSAGE: "LOGIN OK" });
   }
+  // return res.json({ MESSAGE: "LOGIN OK" });
 });
 
 router.get("/logout", (req, res) => {

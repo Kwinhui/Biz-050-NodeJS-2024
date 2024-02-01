@@ -1,8 +1,17 @@
 import express from "express";
+import DB from "../models/index.js";
+
+const ioList = DB.models.tbl_iolist;
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  return res.render("iolist/list");
+  try {
+    const rows = await ioList.findAll();
+
+    return res.render("iolist/list", { ioList: rows });
+  } catch (error) {
+    return res.json(error);
+  }
 });
 router.get("/insert", (req, res) => {
   const user = req.session?.user;
