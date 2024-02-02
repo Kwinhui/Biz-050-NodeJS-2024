@@ -2,11 +2,19 @@ import express from "express";
 import DB from "../models/index.js";
 
 const ioList = DB.models.tbl_iolist;
+const DEPTS = DB.models.tbl_depts;
+const PRODUCTS = DB.models.tbl_products;
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const rows = await ioList.findAll();
+    const rows = await ioList.findAll({
+      include: [
+        { model: PRODUCTS, as: "IO_상품" },
+        { model: DEPTS, as: "IO_거래처" },
+      ],
+    });
+    // return res.json(rows);
 
     return res.render("iolist/list", { ioList: rows });
   } catch (error) {
