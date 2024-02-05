@@ -2,6 +2,7 @@ extends ../layout
 
 block content 
     script(src="/js/product.js")
+    link(rel="stylesheet", href="/css/productList.css")
     h1 상품관리
 
     table.products 
@@ -9,9 +10,21 @@ block content
             th 상품코드
             th 상품이름
             th 품목
-
+            th 규격
+            th 매입단가
+            th 매출단가
+    
         each item in PRODUCTS 
             tr(data-pcode=`${item.p_code}`)
                 td= item.p_code
                 td= item.p_name
                 td= item.p_item
+                td= item.p_std
+                td= item.p_iprice
+                td= item.p_oprice
+    form(method="POST") 
+        div.btnBox
+            input.input(type="text")
+            button.search 상품조회
+            button.add 
+                a(href="/products/insert") 상품추가

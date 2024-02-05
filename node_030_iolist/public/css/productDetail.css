@@ -1,0 +1,58 @@
+div.detail h1 {
+  margin-top: 10px;
+  width: 60%;
+  text-align: center;
+  border-top: 1px solid blue;
+  border-bottom: 1px solid blue;
+  margin: 10px auto;
+}
+div.form {
+  /* border: 1px solid red; */
+}
+
+div.content.box {
+  /* background-color: #aaa; */
+  text-align: center;
+  display: flex;
+
+  width: 60%;
+  margin: auto;
+  padding: 10px;
+  /* justify-content: center; */
+}
+div.content.box strong {
+  flex: 1;
+  text-align: right;
+
+  border-bottom: 1px solid #aaa;
+}
+div.content.box span {
+  flex: 1;
+}
+div.image {
+  /* border: 1px solid red; */
+  display: flex;
+  /* border: 1px solid red; */
+}
+div.image input {
+  position: absolute;
+  left: 10%;
+  width: 180px;
+
+  /* border: 1px solid red; */
+}
+
+/* div.btn
+a(href="/update") 
+    button.update 수정
+a(href="/delete/") 
+    button.delete 삭제 */
+
+div.btn {
+  border: 1px solid black;
+  display: flex;
+}
+
+button.update {
+  flex: 1;
+}
