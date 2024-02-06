@@ -2,10 +2,11 @@ extends ../layout
 
 block content 
     link(rel="stylesheet", href="/css/products.css")
+    script(src="/js/product.js")
     //- enctype = "multipart/form-data"
     //- form에 담겨있는 데이터를 쪼개서 보내라
     //- image 파일크기가 감당이 안되면 알아서 쪼개서 보내라
-    form.products(method="POST")
+    form.products(method="POST", enctype = "multipart/form-data")
         fieldset 
             legend 상품입력
             div 
@@ -28,6 +29,7 @@ block content
                  height="100px", alt="추가아이콘")
                 input(type="file", name="p_image", accept=("image/*"),
                  id="p_image")
+                input#img_focus
                 
                 //- image/* -> 모든 이미지 파일
             div.btn_box

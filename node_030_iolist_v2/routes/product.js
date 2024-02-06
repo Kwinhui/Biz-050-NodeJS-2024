@@ -1,5 +1,6 @@
 import express from "express";
 import DB from "../models/index.js";
+import { upLoad } from "../modules/file_upload.js";
 const PRODUCTS = DB.models.tbl_products;
 const IOLIST = DB.models.tbl_iolist;
 const DEPTS = DB.models.tbl_depts;
@@ -38,15 +39,17 @@ router.get("/:pcode/detail2", async (req, res) => {
 router.get("/insert", (req, res) => {
   return res.render("product/insert");
 });
+// single - 파일 1개만 받겠다, p_image - input.pug 파일의 name
+router.post("/insert", upLoad.single("p_image"), (req, res) => {
+  const file = req.file;
 
-router.post("/insert", (req, res) => {
-  return res.json(req.body);
+  return res.json({ body: req.body, file });
 });
 
-router.post("/insert", (req, res) => {
-  PRODUCTS.create(req.body);
-  return res.redirect("product/list");
-});
+// router.post("/insert", (req, res) => {
+//   PRODUCTS.create(req.body);
+//   return res.redirect("product/list");
+// });
 
 router.get("/cancel", (req, res) => {
   return res.redirect("product/list");
