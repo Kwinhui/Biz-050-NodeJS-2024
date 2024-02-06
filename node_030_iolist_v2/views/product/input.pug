@@ -1,0 +1,36 @@
+extends ../layout
+
+block content 
+    link(rel="stylesheet", href="/css/products.css")
+    //- enctype = "multipart/form-data"
+    //- form에 담겨있는 데이터를 쪼개서 보내라
+    //- image 파일크기가 감당이 안되면 알아서 쪼개서 보내라
+    form.products(method="POST")
+        fieldset 
+            legend 상품입력
+            div 
+                label(for="p_code") 상품코드
+                input(type="text", name="p_code", id="p_code")
+                label(for="p_name") 상품이름
+                input(type="text", name="p_name", id="p_name")
+            div 
+                label(for="p_item") 품목
+                input(type="text", name="p_item", id="p_item")
+                label(for="p_std") 규격
+                input(type="text", name="p_std", id="p_std")
+            div 
+                label(for="p_iprice") 매입단가
+                input(type="text", name="p_iprice", id="p_iprice")
+                label(for="p_oprice") 매출단가
+                input(type="text", name="p_oprice", id="p_oprice")
+            div.img_box
+                img.img_add(src="/images/add_icon.svg",width="100px",
+                 height="100px", alt="추가아이콘")
+                input(type="file", name="p_image", accept=("image/*"),
+                 id="p_image")
+                
+                //- image/* -> 모든 이미지 파일
+            div.btn_box
+                input(type="submit", value = "저장")
+                input(type="reset", value = "새로작성")
+            

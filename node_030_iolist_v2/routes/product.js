@@ -15,6 +15,10 @@ router.get("/", async (req, res) => {
   return res.render("product/list", { PRODUCTS: rows });
 });
 
+router.get("/insert", (req, res) => {
+  return res.render("product/input");
+});
+
 // router.get("/:pcode/detail", async (req, res) => {
 //   const pcode = req.params.pcode;
 //   const row = await PRODUCTS.findByPk(pcode, { include: { model: IOLIST, as: "IOS", include: { model: DEPTS, as: "IO_거래처" } } });
@@ -33,6 +37,10 @@ router.get("/:pcode/detail2", async (req, res) => {
 
 router.get("/insert", (req, res) => {
   return res.render("product/insert");
+});
+
+router.post("/insert", (req, res) => {
+  return res.json(req.body);
 });
 
 router.post("/insert", (req, res) => {
