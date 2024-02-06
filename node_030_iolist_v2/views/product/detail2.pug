@@ -1,0 +1,37 @@
+extends ../layout
+
+block content 
+    link(rel="stylesheet", href="/css/productDetail.css")
+    
+    div.form
+        div.detail
+            h1 #{PRODUCT.p_name} 
+            
+            
+            div.image
+                input.image(type="image" src="/images/3.jpg" alt="강아지")
+            div.content.box
+                
+                strong 상품코드
+                span #{PRODUCT.p_code} 
+                strong 상품이름
+                span #{PRODUCT.p_name} 
+            div.content.box
+                strong 품목
+                span #{PRODUCT.p_item} 
+                strong 규격
+                span #{PRODUCT.p_std} 
+            div.content.box
+                strong 매입단가
+                span #{PRODUCT.p_iprice} 
+                strong 매출단가
+                span #{PRODUCT.p_oprice} 
+            div.btn
+                a(href="/update") 
+                    button.update 수정
+                a(href="/delete/") 
+                    button.delete 삭제
+                
+
+        
+
