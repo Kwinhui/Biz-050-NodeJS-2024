@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const p_code = tr.dataset.pcode;
       console.log(p_code);
       // 클릭이 되면 상품코드 가져와
-      document.location.replace(`/products/${p_code}/detail2`);
+      document.location.replace(`/products/${p_code}/detail`);
     }
   });
   // const addBtn = document.querySelector("#btn_insert");
