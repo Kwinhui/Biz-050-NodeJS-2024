@@ -41,14 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (target.tagName === "TH" || target.closest("TH")) {
       const text = target.innerText || target.closest("TH").innerText;
       // alert(text);
-      const sortColumn = TH_ITEMS[text.trim()];
+      const sortColumn = TH_ITEMS[text.trim()]; // .trim() white space 제거
 
       url.searchParams.set("order", order === "ASC" ? "DESC" : "ASC");
       // 주소창 , 선택
       // 주소창의 sort 선택 요소와 클릭한 선택 요소가 다르면
       // 무조건 ASC 로 초기화 하여라
       sort != sortColumn && url.searchParams.set("order", "ASC");
-
       // http://localhost:3000/products/?p_search=%EC%B4%88%EC%BD%94
       // url중에서 searchParam(또는 queryString) 들만 추출하기  ? 뒤의 값들
 

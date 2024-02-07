@@ -27,6 +27,8 @@ const upLoadPath = path.join(appRoot, "public", "uploads");
  * filename : 파일 이름에 대한 핸들링
  */
 
+// client가 file > router > upLoad > req 순으로 흐름
+
 // const upLoad = multer({
 //   storage: multer.diskStorage({
 //     // 파일을 어디에 어떻게 저장할것인지

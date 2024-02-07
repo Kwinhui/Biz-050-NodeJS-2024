@@ -41,7 +41,9 @@ router.get("/insert", (req, res) => {
 
 router.get("/:pcode/detail", async (req, res) => {
   const pcode = req.params.pcode;
-  const row = await PRODUCTS.findByPk(pcode, { include: { model: IOLIST, as: "IOS", include: { model: DEPTS, as: "IO_거래처" } } });
+  const row = await PRODUCTS.findByPk(pcode, {
+    include: { model: IOLIST, as: "IOS", include: { model: DEPTS, as: "IO_거래처" } },
+  });
 
   return res.render("product/detail", { PRODUCT: row });
 });
