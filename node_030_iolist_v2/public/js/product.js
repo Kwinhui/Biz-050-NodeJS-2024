@@ -1,4 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const TH_ITEMS = {
+    상품코드: "p_code",
+    상품이름: "p_name",
+    품목: "p_item",
+    규격: "p_std",
+    매입단가: "p_iprice",
+    매출단가: "p_oprice",
+  };
+  const url = new URL(document.location.href);
+  // href : 현재 화면이 열릴때 서버에 요청한 주소창의 값들
+  // href 값에 일부를 추출하거나, 값을 가공하기 위하여 사용
+  // 주소창에 sort라는 값이 있으면 그 값을 가져와
+  const sort = url.searchParams.get("sort");
+
+  // 주소창에 order라는 값이 있으면 그 값을 가져와
+  const order = url.searchParams.get("order");
+
   const pro_table = document.querySelector("table.products");
   /**
    * table.products 선택자는 상품리스트 화면에서는 유효한 선택자 이다.
@@ -20,8 +37,47 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(p_code);
       // 클릭이 되면 상품코드 가져와
       document.location.replace(`/products/${p_code}/detail`);
-    }
-  });
+      // 현재 click 된 요소가 TH 이거나 TH 의 자손이면
+    } else if (target.tagName === "TH" || target.closest("TH")) {
+      const text = target.innerText || target.closest("TH").innerText;
+      // alert(text);
+      const sortColumn = TH_ITEMS[text.trim()];
+
+      url.searchParams.set("order", order === "ASC" ? "DESC" : "ASC");
+      // 주소창 , 선택
+      // 주소창의 sort 선택 요소와 클릭한 선택 요소가 다르면
+      // 무조건 ASC 로 초기화 하여라
+      sort != sortColumn && url.searchParams.set("order", "ASC");
+
+      // http://localhost:3000/products/?p_search=%EC%B4%88%EC%BD%94
+      // url중에서 searchParam(또는 queryString) 들만 추출하기  ? 뒤의 값들
+
+      // sortColumn 이 Null 이 아닌 경우만 sort 변수를 세팅
+      // null safe 코드
+      sortColumn && url.searchParams.set("sort", sortColumn);
+      // order랑 sort 값을 set(추가) 해서 ASC, sortColumn 값을 추가
+      document.location.replace(`/products?${url.searchParams.toString()}`);
+
+      // .trim() whitepsace 제거
+      // let sort = "p_code"
+      // if(text === "상품코드") {
+      //   sort = "p_code"
+      // } else if (text === "상품이름") {
+      //   sort = "p_name"
+      // }
+      // alert(sortColumn);
+    } // end else - if
+    // http://localhost:3000/products?order=ASC&sort=p_code
+  }); // end event
+
+  // DOMContentLoaded event 가 실행될때 마다 실행
+  // "span.p_code"
+  const span_sort = document.querySelector(`span.${sort}`);
+  const icon = span_sort.querySelector("i.arrow");
+  // i tag
+  span_sort.classList.add("sort");
+  icon.classList.add(order === "ASC" ? "up" : "down");
+
   // const addBtn = document.querySelector("#btn_insert");
   // addBtn.addEventListener("click", () => {
   //   document.location.replace("/products/insert");
@@ -65,11 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
     input_img.click();
   });
   input_img?.addEventListener("change", imagePreView);
-  div_img.addEventListener("click", () => {
+  div_img?.addEventListener("click", () => {
     input_focus.focus();
   });
 
-  div_img.addEventListener("paste", async (e) => {
+  div_img?.addEventListener("paste", async (e) => {
     const items = e.clipboardData.items;
     const item = items[0];
     const img_add = document.querySelector("img.img_add");

@@ -1,20 +1,38 @@
 import express from "express";
 import DB from "../models/index.js";
 import { upLoad } from "../modules/file_upload.js";
+import { Op } from "sequelize";
+// Operater 라는 객체
+// Sequelize 를 사용할때 추가로 제공되는 확장 연산자
 const PRODUCTS = DB.models.tbl_products;
 const IOLIST = DB.models.tbl_iolist;
 const DEPTS = DB.models.tbl_depts;
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  const p_search = req.query.p_search || "";
+  const sort = req.query.sort || "p_code";
+  const order = req.query.order || "ASC";
   const rows = await PRODUCTS.findAll({
+    where: {
+      [Op.or]: [
+        { p_name: { [Op.like]: `%${p_search}%` } },
+        // Op.or 연산으로 묶어주지 않으면 p_name이 참이면(and)
+        // p_code 거짓일땐 아무것도 나오지 않게되는데
+        // Op.or 연산으로 또는으로 설정해준다
+        { p_code: `${p_search}` },
+      ],
+
+      // Op.like 라는 연산자를 통해 p_search
+    },
+    // 이름으로 찾기
     // 리스트10개로 제한
     // limit: 10,
     // pcode 오름차순정렬
-    order: [["p_code", "DESC"]],
+    order: [[sort, order]],
   });
 
-  return res.render("product/list", { PRODUCTS: rows });
+  return res.render("product/list", { PRODUCTS: rows, p_search });
 });
 
 router.get("/insert", (req, res) => {
