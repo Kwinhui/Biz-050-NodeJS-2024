@@ -22,15 +22,15 @@ router.post("/input", upLoad.single("m_image"), async (req, res) => {
   const time = moment().format("hh:mm");
   const file = req.file;
   if (file) {
-    req.body.m_image_name = file.filename;
-    req.body.m_image_origin_name = file.originalname;
+    req.body.m_image = file.filename;
+    // req.body.m_image_origin_name = file.originalname;
   }
   req.body.m_date = today;
   req.body.m_time = time;
   req.body.m_author = "n96js@naver.com";
   try {
     await MEMO.create(data);
-
+    // return res.json(MEMO);
     return res.redirect("/");
   } catch (error) {
     return res.json(error);
