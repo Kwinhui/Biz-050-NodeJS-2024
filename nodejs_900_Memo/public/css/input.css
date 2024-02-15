@@ -1,0 +1,98 @@
+section {
+  display: none;
+}
+form {
+  width: 70%;
+
+  display: flex;
+  margin: 0 auto;
+  height: 60%;
+  flex-direction: column;
+  input {
+    margin-bottom: 10px;
+    outline: none;
+  }
+  input.head {
+    margin-bottom: 10px;
+  }
+  input.content {
+    height: 80%;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+/* img {
+  display: flex;
+  flex-direction: column;
+} */
+
+/* form(action="POST") 
+input.head(type="text" name="m_memo" placeholder="제목을 입력하세요")
+input.content(type="text" name="m_memo" placeholder="내용을 입력해주세요")
+button 작성
+
+div
+img.img_add(src="/images/add_icon.svg",width="100px",
+height="100px", alt="추가아이콘")
+input(type="file", name="p_image", accept=("image/*"),
+id="p_image") */
+div.img_box {
+  /* 전체크기 95% 에서 div padding -12px, -10px 빼라 */
+
+  /*
+   4칙연산을 통하여 width 값을 설정하기
+   CSS3 에서 calc() 함수를 사용하면 4칙연산식을 사용하여 값을 만들 수 있다.
+   1. img_box 의 width 끝을 화면에 input box 와 일치하고 싶다.
+   2. 전체 div box 의 width 95% 로 설정하여 실제 크기가 얼마인지 알기 어렵다.
+   3. 이때 calc 함수를 사용하여 전체 div의 width 인 95% 에서 각각 padding 등의
+    값 만큼 빼기 연산을 통하여 box 의 width 를 계산하였다.
+  */
+
+  max-width: calc(95% -12px -10px);
+  border: 1px solid #ccc;
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img.img_add {
+    transition: 0.7s;
+    &:hover {
+      opacity: 0.5;
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+    }
+  }
+  /*
+   목표: div.img_box 를 클릭하면 focus 가 지정되고, focus 가 지정된 것을
+   보여주고 싶다
+   1. div box 는 focus 를 지정할수 없다.
+    focus를 지정할 수 있는 tag 는 input, button 등 몇몇으로 한정
+   2. div box 내부에 input tag 를 하나 추가하고
+    opacity 를 0 으로 하여 투명하게 한다.
+    position 을 absolute 로 설정하여 위치도 투명하게 : 다른 tag 를 간섭하지 않도록
+   3. JS 를 이용하여 div box 를 클릭하면 input tag 에 focus() 를 실행한다.
+   4. div:focus-within 속성이 적용된다.
+    div box 가 포함하는 input tag 등에 focus가 설정되면
+    자신이 focus 를 받은것 처럼 반응하게 한다.
+   5. 22년 이후의 최신 브라우저만 적용된다.
+  */
+  &:focus-within {
+    border: 1px solid blue;
+    background-color: #f2f2f2;
+  }
+  input#img_focus {
+    opacity: 0;
+    /* display: none; */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+input#p_image {
+  display: none;
+}

@@ -1,0 +1,21 @@
+extends ../layout
+
+block content 
+    link(rel="stylesheet", href="/css/input.css")
+    script(src="/js/input.js")
+    form(method="POST", enctype = "multipart/form-data") 
+        
+        
+        input.head(type="text" name="m_title" placeholder="제목을 입력하세요" id="m_title" value = `${MEMO ? MEMO.m_title : ""}`)
+        input.content(type="text" name="m_memo" placeholder="내용을 입력해주세요" value = `${MEMO ? MEMO.m_memo : ""}`)
+
+        div.img_box
+            img.img_add(src="/images/add_icon.svg",width="100px",
+                height="100px", alt="추가아이콘")
+            input(type="file", name="m_image", accept=("image/*"),
+                id="m_image" value = `${MEMO ? MEMO.m_image : ""}`)
+            input#img_focus
+        button 작성
+        
+    
+        

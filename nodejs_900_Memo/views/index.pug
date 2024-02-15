@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    link(rel="stylesheet", href="/css/memo.css")
+    script(src="/js/input.js")
+    div.body 
+        aside 
+            div.box
+            
+                p#date(name="m_date")
+                p#time(name="m_time")
+                button.input 새로작성
+            
+            each item in MEMO
+              div.list(data-m_seq = `${item.m_seq}`)
+                span= item.m_title
+            
+
+

@@ -1,0 +1,23 @@
+extends ../layout
+
+block content 
+    script(src="/js/detail.js")
+    div 
+        span 일련번호 #{MEMO.m_seq}
+    div 
+        span 작성자 #{MEMO.m_author}
+    div 
+        span 작성일자 #{MEMO.m_date}
+    div 
+        span 작성시각 #{MEMO.m_time}
+    div 
+        span 제목 #{MEMO.m_title}
+    div 
+        span 메모내용 #{MEMO.m_memo}
+    div 
+        span 이미지파일 #{MEMO.m_image}
+    
+    div.btn(data-m_seq = `${MEMO.m_seq}`)
+        button.update(data-m_seq = `${MEMO.m_seq}`) 수정
+        button.delete(data-m_seq = `${MEMO.m_seq}`) 삭제
+        button.list 목록으로
