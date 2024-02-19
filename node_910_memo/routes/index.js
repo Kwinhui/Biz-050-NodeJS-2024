@@ -25,16 +25,22 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", upLoad.single("m_image"), async (req, res) => {
   const imageFile = req.file;
-  try {
-    req.body.m_image = imageFile?.filename;
-    req.body.m_author = "n96js@naver.com";
+  // seq 값이 query에 전달 되었으면
+  const m_seq = req.query.seq;
 
+  // try {
+  req.body.m_image = imageFile?.filename;
+  req.body.m_author = "n96js@naver.com";
+  if (m_seq) {
+    await MEMOS.update(req.body, { where: { m_seq } });
+  } else {
     await MEMOS.create(req.body);
-
-    return res.redirect("/");
-  } catch (error) {
-    return res.json(error);
   }
+
+  return res.redirect("/");
+  // } catch (error) {
+  // return res.json(error);
+  // }
 });
 
 router.get("/get_new_date", async (req, res) => {
@@ -43,6 +49,16 @@ router.get("/get_new_date", async (req, res) => {
   // JSON 의 변수(key)이름과 value의 이름이 같을때는 한번 생략 가능
   // return res.json({ toDate : toDate, toTime : toTime });
   return res.json({ toDate, toTime });
+});
+
+router.post("/update/:seq", upLoad.single("m_image"), async (req, res) => {
+  const seq = req.params.seq;
+  const imageFile = req.file;
+  req.body.m_image = imageFile?.filename;
+  req.body.m_author = "n96js@naver.com";
+
+  await MEMOS.update(req.body, { where: { m_seq: seq } });
+  return res.redirect("/");
 });
 
 router.get("/:seq/get", async (req, res) => {

@@ -52,11 +52,52 @@ ul {
 form.input {
   display: flex;
   flex-direction: column;
+  align-items: center;
   /* width: 100%; */
   input {
     width: 100%;
     padding: 5px;
     margin: 3px 0;
     /* flex: 1; */
+    &.toimage {
+      display: none;
+    }
+  }
+  img.memo {
+    transition: 0.7s;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.4;
+      box-shadow: inset 100px 100px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+input.update {
+  background-color: greenyellow;
+  color: black;
+  border: none;
+  outline: none;
+}
+input.btn_delete {
+  background-color: red;
+  color: white;
+  border: none;
+  outline: none;
+}
+/* 화면이 800px 보다 작아지는경우 */
+@media screen and (max-width: 800px) {
+  footer,
+  header,
+  section.main {
+    width: 95%;
+  }
+
+  section.main {
+    flex-direction: column;
+  }
+  div.aside:nth-of-type(1) {
+    /* 임의로 1번요소를 2번이랑 바꿈 */
+    order: 2;
   }
 }
