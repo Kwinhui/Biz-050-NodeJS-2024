@@ -45,4 +45,10 @@ router.get("/get_new_date", async (req, res) => {
   return res.json({ toDate, toTime });
 });
 
+router.get("/:seq/get", async (req, res) => {
+  const seq = req.params.seq;
+  const row = await MEMOS.findByPk(seq);
+  return res.json(row);
+});
+
 export default router;
