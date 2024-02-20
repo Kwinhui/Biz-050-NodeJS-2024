@@ -31,4 +31,24 @@ router.get("/insert", (req, res) => {
     return res.redirect(`/users/login?fail=${message}`);
   }
 });
+
+router.get("/:io_seq/detail", async (req, res) => {
+  const seq = req.params.io_seq;
+  const row = await ioList.findByPk(seq);
+  return res.render("iolist/detail", { IO_ITEM: row });
+});
+router.get("/:io_seq/delete", async (req, res) => {
+  const seq = req.params.io_seq;
+  const row = await ioList.findByPk(seq);
+  // io_delete 값 1 설정후 save
+  row.io_delete = 1;
+  await row.save();
+  return res.redirect("/iolist");
+});
+
+router.get("/count", async (req, res) => {
+  const rows = await ioList.findAll();
+  return res.json({ count: rows.length });
+});
+
 export default router;
