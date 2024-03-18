@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  link(rel="stylesheet", href="/css/index.css")
+  script(src="/js/index.js")
+  section 
+    aside.left 
+    
+      table.student
+        thead 
+        
+          tr
+            th 학번
+            th 이름
+          tbody 
+            each item in result
+              tr(data-st_num=item.st_num)
+                td= item.st_num
+                td= item.st_name
+                
+
+    aside.right 
+    
+      ul 
+        li(value = "st_num")
+        li(value = "st_name") 
+        li(value = "st_dept") 
+        li(value = "st_grade") 
+        li(value = "st_tel") 
+        li(value = "st_addr") 
+      table.subject 
+        thead 
+          tr 
+            th 과목명
+            th 점수
+          
+          tbody 
+            
+            tr 
+              td(value = "su_name") 
+              td(value = "r_score")
+            
+            
+      button 수정
+
+
+      
