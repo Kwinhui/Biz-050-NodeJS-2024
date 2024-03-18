@@ -9,19 +9,12 @@ html(lang="en")
     script(src="/js/main.js")
   body
     h1 청춘대학 소프트웨어 공학과
-    
-    aside.left 
-    
-      table.student
-        thead 
-        
-          tr
-            th 학번
-            th 이름
-          tbody 
-            
-              tr
-                td 1
-                td 2
-                
-    block content
+      section.box
+        div.left
+          div.main
+            each item in rows
+              ul.item.ul(data-st_num = item.st_num)
+                li.item(data-st_num = item.st_num)= item.st_num
+                li.item(data-st_num = item.st_num)= item.st_name
+
+        block content

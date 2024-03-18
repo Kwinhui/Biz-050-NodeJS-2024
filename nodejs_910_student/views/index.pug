@@ -1,24 +1,48 @@
 extends layout
 
 block content
+  link(rel="stylesheet", href="/css/index.css")
+  div.right
+  
+    ul.std
+      li
+        p 학번 : 
+        p=student.st_num
+      li 
+        p 이름 : 
+        p=student.st_name
+      li 
+        p 학과 : 
+        p=student.st_dept
+      li 
+        p 학년 : 
+        p=student.st_grade
+      li 
+        p 전화번호 : 
+        p=student.st_tel
+      li 
+        p 주소 : 
+        p=student.st_addr
 
-  aside.right 
-    
-      ul 
-        li(value = "st_num")
-        li(value = "st_name") 
-        li(value = "st_dept") 
-        li(value = "st_grade") 
-        li(value = "st_tel") 
-        li(value = "st_addr") 
-      table.subject 
-        thead 
-          tr 
-            th 과목명
-            th 점수
-          
-          tbody 
-            
-            tr 
-              td(value = "su_name") 
-              td(value = "r_score")
+    ul.value 
+      li
+        p= code.r_과목[0].su_name
+        p=code.r_score
+      li
+        p 영어 : 
+        p=code.r_score
+      li
+        p 수학 : 
+        p=code.r_score
+      li
+        p 음악 : 
+        p=code.r_score
+      li
+        p 미술 : 
+        p=code.r_score
+      li
+        p 소프트웨어 : 
+        p=code.r_score
+      li
+        p 데이터베이스 : 
+        p=code.r_score

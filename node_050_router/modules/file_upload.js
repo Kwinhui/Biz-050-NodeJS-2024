@@ -6,9 +6,8 @@
 // import fs from "fs"
 // fs.existsSync()
 // fs 모듈에서 existsSync() 함수와 mkdirSync() 함수만 사용하겠다
-
-import path from "path";
 import { existsSync, mkdirSync } from "fs";
+import path from "path";
 
 // 폴더 이름
 import multer from "multer";

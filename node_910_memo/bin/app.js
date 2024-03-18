@@ -37,10 +37,11 @@ app.use(helmet());
  */
 const cspDirective = {
   directives: {
-    // 서버에있는 나 자신
+    // 우리 서버에 있는것만 쓸거야
     defaultSrc: ["'self'"],
     "img-src": ["'self'", "blob:", "data:"],
-    // imgSrc: ["'self'", "blob:", "data:"],
+    // imgSrc: ["'self'", "blob:", "data:"], / blob 암호화처리
+    // 그 이름을 src로 쓸수있게
     // inline으로 허가하고 fontawesome 에 있는 스크립트, 스타일 허가
     "script-src": ["'self'", "'unsafe-inline'", "https://fontawesome.com/"],
     "script-src": ["'self'", "'unsafe-inline'", "https://fontawesome.com/v4/icons/"],

@@ -1,0 +1,7 @@
+div.right {
+  border: 1px solid red;
+}
+ul.std {
+  display: flex;
+  flex-direction: column;
+}
